@@ -1,7 +1,10 @@
 require 'rubygems'
 require 'bundler/setup'
+require 'yoo_aye'
 
-require 'yoo_ay'
+require 'render_helper'
+require 'nokogiri'
+require "webrat/core/matchers"
 
 module SpecHelper
   def anythings count
@@ -9,6 +12,14 @@ module SpecHelper
   end
 end
 
+ActionView::Base.send :include, YooAyeHelper
+
 RSpec.configure do |config|
-  # some (optional) config here
+  config.include SpecHelper
+  config.include Webrat::Matchers
+  config.include RenderHelper
+  
+  config.before(:each) do
+    initialize_view
+  end
 end

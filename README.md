@@ -5,8 +5,8 @@ KuduUI
 
 Set behaviors:
 
-    $('#user_form').yoo_ay.form_dialog();
-    $('#descriptions').yoo_ay.tabs();
+    $('#user_form').yoo_aye.form_dialog();
+    $('#descriptions').yoo_aye.tabs();
     
 * Widget: part of dom-tree starting (and including) at a specific node.
 * Widget-Behavior: Javascript object to encapsulate behavior
