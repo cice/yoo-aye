@@ -1,0 +1,7 @@
+//= require "jquery"
+//= require "jquery-ui"
+//= require "jquery.json"
+//= require "jquery.tmpl"
+//= require "jquery.ui.nestedSortable"
+//= require "jquery.i18n"
+//= require "rails"

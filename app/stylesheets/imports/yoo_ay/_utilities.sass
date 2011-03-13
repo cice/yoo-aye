@@ -1,0 +1,59 @@
+@mixin bg-image($file, $adjust_size)
+  background-image: image-url($file)
+  @if $adjust_size == x
+    width: image-width($file)
+  @else if $adjust_size == y
+    height: image-height($file)
+  @else if $adjust_size == xy
+    width: image-width($file)
+    height: image-height($file)
+  
+@mixin a-colors($color)
+  +_a-colors($color)
+  &:link, &:visited, &:hover, &:active
+    +_a-colors($color)
+  
+@mixin _a-colors($color)
+  color: $color
+  
+@mixin _vanilla-a
+  text-decoration: none
+  
+@mixin vanilla-a
+  +_vanilla-a
+  &:link, &:visited, &:hover, &:active
+    +_vanilla-a
+
+@mixin vanilla-hr
+  border: none
+  background-color: transparent
+  margin: 0
+
+hr.float_breaker
+  +vanilla-hr
+  +clearfix
+  clear: both
+  
+  
+@mixin aligns-to($side, $inside: inside, $absolute: true)
+  @if $absolute == true
+    position: absolute
+  #{$side}: 0
+  @if $inside == outside
+    margin-#{$side}: -100%
+
+@mixin aligns-rect($horizontal, $vertical, $inside, $absolute: true)
+  +position-to-the($horizontal, $inside, $absolute)
+  +position-on($vertical, $inside, false)
+  
+@mixin stretches($direction)
+  @if $direction == vertically
+    top: 0
+    bottom: 0
+  @else if $direction == horizontally
+    left: 0
+    right: 0
+    
+@mixin vanilla-list
+  list-style-type: none
+  list-style-position: inside
