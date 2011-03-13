@@ -56,9 +56,10 @@ module YooAye
       end
 
       def render_item item, index
-        item_content = layout_item item, index, cloned_attributes
+        item_attributes = clone_item_attributes
+        item_content = layout_item item, index, item_attributes
 
-        render_tag :li, item_content.html_safe, cloned_attributes.to_hash
+        render_tag :li, item_content.html_safe, item_attributes.to_hash
       end
 
       def layout_item item, index, tag
@@ -86,7 +87,7 @@ module YooAye
       end
       
       private
-      def cloned_attributes
+      def clone_item_attributes
         unless layouts.all? {|l| l.arity < 3}
           @item_attributes.dup
         else
