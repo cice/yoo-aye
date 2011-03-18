@@ -30,11 +30,10 @@ module YooAye::Helpers
 
     def initialize view, controller
       @view, @controller = view, controller
-      @tag = Tag.new
     end
 
     def tag
-      @tag
+      @tag ||= Tag.new
     end
 
     def tag_hash
@@ -43,9 +42,7 @@ module YooAye::Helpers
 
     # Default options behavior: assign hash key/values to instance variables
     def add_options *args
-      options = args.extract_options!
-
-      @tag.merge_hash options
+      tag.merge_hash args.extract_options!
     end
 
     def render_tag *args, &block

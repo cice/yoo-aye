@@ -71,16 +71,17 @@ module YooAye
         classes = @attributes[:classes] + other_tag.attributes[:classes]
         data = @attributes[:data].merge other_tag.attributes[:data]
       
-        @attributes.merge other_tag.attributes
+        @attributes.merge! other_tag.attributes
         @attributes[:classes] = classes
         @attributes[:data] = data
       end
     
-      def merge_hash hsh
-        classes = hsh.delete(:classes)  || []
-        data    = hsh.delete(:data)     || {}
+      def merge_hash other_hash
+        other_hash = other_hash.dup
+        classes = other_hash.delete(:classes)  || []
+        data    = other_hash.delete(:data)     || {}
       
-        @attributes.merge hsh
+        @attributes.merge! other_hash
         @attributes[:classes] += classes
         @attributes[:data] = @attributes[:data].merge data
       end

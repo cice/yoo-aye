@@ -6,6 +6,7 @@ module YooAye
     mattr_accessor :helpers
     self.helpers = %w[
       list
+      table_list
     ]
     
     helpers.each do |helper|

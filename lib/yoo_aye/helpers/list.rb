@@ -4,21 +4,11 @@ module YooAye
   module Helpers
     class List < Base
       attr_accessor :items, :layouts
-      attr_writer :type
-
-      # Designate default type
-      def type
-        @type || type_default
-      end
-
-      def type_default
-        :unordered
-      end
 
       def initialize view, controller = nil
         super
 
-        @item_attributes = Tag.new :parent => self
+        @item_attributes = Tag.new :parent => tag
         @layouts = []
       end
 
@@ -30,7 +20,6 @@ module YooAye
 
       def add_options items, *args
         super
-
         @items = items
       end
 
@@ -43,8 +32,16 @@ module YooAye
       end
       
       protected
+      def container_element
+        :ul
+      end
+      
+      def item_element
+        :li
+      end
+      
       def render_container &block
-        render_tag :ul, Tag.blank, &block
+        render_tag container_element, tag_hash, &block
       end
 
       def render_items
@@ -59,7 +56,7 @@ module YooAye
         item_attributes = clone_item_attributes
         item_content = layout_item item, index, item_attributes
 
-        render_tag :li, item_content.html_safe, item_attributes.to_hash
+        render_tag item_element, item_content.html_safe, item_attributes.to_hash
       end
 
       def layout_item item, index, tag

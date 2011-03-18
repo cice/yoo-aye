@@ -18,6 +18,17 @@ module YooAye::Helpers
       rendered.should have_selector('li', :count => 3)
     end
     
+    it 'uses attributes on container element' do
+      render_haml <<-HAML
+        = ui.list [], :class => 'a-list', :id => 'alist' do |l|
+          - l.item do |item|
+            = item.upcase
+          
+      HAML
+      
+      rendered.should have_selector('ul#alist.a-list')
+    end
+    
     it 'renders generic classes for items' do   
       render_haml <<-HAML
         = ui.list @items do |l|
