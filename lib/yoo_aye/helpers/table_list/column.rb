@@ -15,7 +15,7 @@ module YooAye
         def add_options *args
           tag.merge_hash args.extract_options!
           
-          @caption = if caption = args.shift
+          @caption = if caption = args.first
             caption
           else
             @key.to_s.humanize
