@@ -1,19 +1,26 @@
 module YooAye::Helpers
   module TableList::Columns
     def string key, *args
-      column key, *args do |item|
+      column key, html_options_in_args(args) do |item|
         view.concat item.send(key).to_s
       end
     end
     
     def datetime key, *args
-      format = options_in_args(args)[:format]
-      column key, *args do |item|
-        view.concat datetime_format(item.send(key), format)
+      helper key, :localize, *args
+    end
+    
+    def helper key, helper, *args
+      column key, html_options_in_args(args) do |item|
+        view.concat eval_helper(item.send(key), helper, *args)
       end
     end
     
     protected
+    def eval_helper value, helper, *args
+      view.send helper, value, *args
+    end
+    
     def datetime_format value, format = nil
       format ||= :default
       view.localize value, :format => format
@@ -22,6 +29,10 @@ module YooAye::Helpers
     def options_in_args args
       options = args.last
       options.is_a?(Hash) ? options : {}
+    end
+    
+    def html_options_in_args args
+      options_in_args(args)[:html]
     end
   end
 end

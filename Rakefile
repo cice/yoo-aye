@@ -10,3 +10,5 @@ begin
 rescue LoadError
   puts "RSpec is not available. In order to run specs, you must: gem install rspec"
 end
+
+task :default => :spec

@@ -29,6 +29,17 @@ module YooAye::Helpers
       rendered.should have_selector('th', :content => 'Book Title')
     end
     
+    it 'accepts options for html attributes' do
+      render_haml <<-HAML
+        = ui.table_list @books do |t|
+          - t.column :author, :class => 'an-author' do |book|
+            = book.author
+      HAML
+      
+      rendered.should have_selector('th.author.an-author', :count => 1)
+      rendered.should have_selector('td.author.an-author', :count => 2)
+    end
+    
     it 'uses column keys as classes for td elements' do
       render_haml <<-HAML
         = ui.table_list @books do |t|
@@ -45,19 +56,19 @@ module YooAye::Helpers
     it 'provides a string column shortcut' do
       render_haml <<-HAML
         = ui.table_list @books do |t|
-          - t.string :author
+          - t.string :author, :html => {:class => 'an-author'}
       HAML
       
-      rendered.should have_selector('td.author', :content => 'Hermann Hesse')
+      rendered.should have_selector('td.author.an-author', :content => 'Hermann Hesse')
     end
     
     it 'provides a datetime column shortcut' do
       render_haml <<-HAML
         = ui.table_list @books do |t|
-          - t.datetime :last_read
+          - t.datetime :last_read, :html => {:class => 'a-date'}
       HAML
       
-      rendered.should have_selector('td.last_read', :content => 'Sun, 01 Jan 2006 00:00:00 +0000')
+      rendered.should have_selector('td.last_read.a-date', :content => 'Sun, 01 Jan 2006 00:00:00 +0000')
     end
     
     it 'accepts a format parameter for the datetime shortcut' do
@@ -67,6 +78,16 @@ module YooAye::Helpers
       HAML
       
       rendered.should have_selector('td.last_read', :content => '01 Jan 00:00')
+    end
+    
+    it 'provides a helper shortcut column' do
+      view.should_receive(:highlight).with("Im Westen Nichts Neues", 'N')
+      view.should_receive(:highlight).with("Narziss und Goldmund", 'N')
+   
+      render_haml <<-HAML
+        = ui.table_list @books do |t|
+          - t.helper :title, :highlight, 'N'
+      HAML
     end
   end
 end

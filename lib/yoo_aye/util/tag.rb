@@ -30,7 +30,8 @@ module YooAye
         @attributes = {
           :classes => [],
           :data => {}
-        }.merge options.symbolize_keys
+        }
+        merge_hash options.symbolize_keys
       end
 
       def dup
@@ -52,7 +53,7 @@ module YooAye
       def to_hash
         @attributes.dup.tap do |hsh|
           classes = hsh.delete(:classes).reject &:blank?
-          hsh[:class] = classes.join(" ") unless classes.blank?
+          hsh[:class] = classes.compact.join(" ") unless classes.blank?
           
           data = hsh.delete :data
           if data.is_a? Hash
@@ -74,8 +75,10 @@ module YooAye
     
       def merge_hash other_hash
         other_hash = other_hash.dup
+        class_  = other_hash.delete(:class)    || nil  
         classes = other_hash.delete(:classes)  || []
         data    = other_hash.delete(:data)     || {}
+        classes += [class_]
       
         @attributes.merge! other_hash
         @attributes[:classes] += classes
