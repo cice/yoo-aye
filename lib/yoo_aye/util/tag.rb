@@ -7,7 +7,7 @@ module YooAye
         end
       end
     
-      attr_accessor :attributes, :parent
+      attr_accessor :attributes
       class_inheritable_array :html_attributes
       
       def self.initialize_html_attributes
@@ -30,11 +30,7 @@ module YooAye
         @attributes = {
           :classes => [],
           :data => {}
-        }
-
-        options.each do |key, value|
-          instance_variable_set :"@#{key}", value
-        end
+        }.merge options.symbolize_keys
       end
 
       def dup

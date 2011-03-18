@@ -8,7 +8,7 @@ module YooAye
       def initialize view, controller = nil
         super
 
-        @item_attributes = Tag.new :parent => tag
+        @item_attributes = Tag.new
         @layouts = []
       end
 
@@ -66,8 +66,15 @@ module YooAye
       end
 
       def apply_layout layout, item = nil, index = nil, tag = nil
-        @view.capture do
-          layout.call *arguments_for_layout(layout, item, index, tag)
+        case layout
+        when String
+          layout
+        when Proc
+          @view.capture do
+            layout.call *arguments_for_layout(layout, item, index, tag)
+          end
+        else
+          ""
         end
       end
 

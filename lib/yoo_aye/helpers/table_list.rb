@@ -3,26 +3,10 @@ require 'yoo_aye/helpers/list'
 module YooAye
   module Helpers
     class TableList < List
-      class Column
-        attr_accessor :key, :layouts, :tag, :head_layouts
-
-
-        def initialize key, options = {}
-          @key = key
-          @layouts = []
-          @head_layouts = []
-          @tag = Util::Tag.new
-          add_options options
-        end
-
-        def add_options options
-          tag.merge_hash options
-        end
-        
-        def independent_tag
-          @tag.dup
-        end
-      end
+      autoload :Column, 'yoo_aye/helpers/table_list/column'
+      autoload :Columns, 'yoo_aye/helpers/table_list/columns'
+      
+      include Columns
 
       alias_method :row, :item
       attr_accessor :columns
@@ -42,13 +26,8 @@ module YooAye
       end
 
       def column key, *args, &block
-        options = args.extract_options!
-        
         columns[key].tap do |column|
-          if head = args.first
-            column.head_layouts << layoutify(head)
-          end
-          column.add_options options
+          column.add_options *args
           column.layouts << block if block
         end
       end
@@ -111,7 +90,7 @@ module YooAye
       def render_head_cell column        
         column.head_layouts.sum "" do |layout|
           apply_layout layout
-        end
+        end.html_safe
       end
     end
   end

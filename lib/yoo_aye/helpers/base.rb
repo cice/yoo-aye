@@ -52,14 +52,5 @@ module YooAye::Helpers
     def to_html
       "#{self.class.name}#to_html"
     end
-    
-    protected
-    def layoutify str
-      view = @view
-      
-      proc do
-        view.output_buffer << str
-      end
-    end
   end
 end
