@@ -11,7 +11,7 @@ module YooAye::Helpers
     
     it 'renders a definition list' do
       render_haml <<-HAML
-        = ui.definition @items.to_a
+        = ui.definition @items
       HAML
       
       rendered.should have_selector('dl dt', :content => 'one')
@@ -22,13 +22,13 @@ module YooAye::Helpers
     
     it 'provides an option to customize rendering of dt and dd' do
       render_haml <<-HAML
-        = ui.definition @items.to_a do |d|
-          - d.term do |term|
+        = ui.definition @items do |d|
+          - d.term do |key|
             %em
-              = term
-          - d.definition do |definition|
+              = key
+          - d.definition do |value|
             %strong
-              = definition
+              = value
       HAML
       
       rendered.should have_selector('dl dt em', :content => 'one')
@@ -39,10 +39,10 @@ module YooAye::Helpers
     
     it 'provides an item index and tag for custom rendering blocks' do
       render_haml <<-HAML
-        = ui.definition @items.to_a do |d|
-          - d.term do |term, index, tag|
+        = ui.definition @items do |d|
+          - d.term do |key, index, tag|
             - tag.id = "term-\#{index + 1}"
-            = term
+            = key
       HAML
       
       rendered.should have_selector('dl dt#term-1')

@@ -41,7 +41,7 @@ module YooAye::Helpers
     end
 
     # Default options behavior: assign hash key/values to instance variables
-    def add_options *args
+    def add_options data, *args
       tag.merge_hash args.extract_options!
     end
 
