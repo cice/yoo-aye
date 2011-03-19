@@ -32,10 +32,10 @@ module YooAye
         end
       end
       
-      
-      def head key, &block
+      def head key, caption = nil, &block
+        caption ||= block
         columns[key].tap do |column|
-          column.add_head_layout block
+          column.add_head_layout caption
         end
       end
 

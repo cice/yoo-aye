@@ -36,9 +36,12 @@ module YooAye::Helpers
             = book.author
           - t.head :author do
             The Author
+          - t.string :title
+          - t.head :title, "The Title"
       HAML
       
       rendered.should have_selector('th.author', :content => "The Author")
+      rendered.should have_selector('th.title', :content => "The Title")
     end
     
     it 'accepts options for html attributes' do
