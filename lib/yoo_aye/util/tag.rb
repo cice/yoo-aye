@@ -1,30 +1,32 @@
 module YooAye
   module Util
     class Tag
+      attr_accessor :attributes
+      class_inheritable_array :html_attributes
+      self.html_attributes = %w(abbr accept accesskey action align alt archive axis background bgcolor border cellpadding cellspacing char charoff charset checked cite classid clear code codebase codetype cols colspan compact content coords datetime declare defer dir disabled enctype face for frame frameborder headers height href hreflang hspace http_equiv id ismap label lang longdesc marginheight marginwidth maxlength media method multiple name nohref noresize noshade nowrap object onblur onchange onclick ondblclick onfocus onkeydown onkeypress onkeyup onload onmousedown onmousemove onmouseout onmouseover onmouseup onreset onselect onsubmit onunload profile prompt readonly rel rev rows rowspan rules scheme scope scrolling selected shape size span src standby start style summary tabindex target text title type usemap valign value valuetype version vlink vspace width)
+
       class << self
         def blank
           @_blank_tag ||= Tag.new.freeze
         end
-      end
-    
-      attr_accessor :attributes
-      class_inheritable_array :html_attributes
-      
-      def self.initialize_html_attributes
-        html_attributes.each do |html_attr|
-          define_method "#{html_attr}=" do |value|
-            if value.nil?
-              @attributes.delete html_attr
-            else
-              @attributes[html_attr] = value
+        
+        def initialize_html_attributes
+          html_attributes.each do |html_attr|
+            define_method "#{html_attr}=" do |value|
+              if value.nil?
+                @attributes.delete html_attr
+              else
+                @attributes[html_attr] = value
+              end
             end
-          end
 
-          define_method "#{html_attr}" do
-            @attributes[html_attr]
+            define_method "#{html_attr}" do
+              @attributes[html_attr]
+            end
           end
         end
       end
+      initialize_html_attributes
       
       def initialize options = {}
         @attributes = {

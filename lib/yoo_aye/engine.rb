@@ -32,10 +32,6 @@ module YooAye
       app.paths.app.views << path_to(%w(app views))
     end
     
-    initializer "yoo_aye.load_html_attributes" do |app|
-      Util::Tag.html_attributes = YAML.load_file path_to(%w(config html_attributes.yml))
-    end
-    
     initializer "yoo_aye.setup_sass_paths" do |app|
       Sass::Plugin.options[:load_paths] ||= []
       Sass::Plugin.options[:load_paths] << sass_imports_path

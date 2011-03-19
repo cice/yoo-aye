@@ -24,14 +24,14 @@ module YooAye::Helpers
       end
     end
     
-    protected
-    # As Rails' ActionView Helpers DO modify option hashes passed to them, (which stinks big time)
-    # we try to dup any hash within args
+    private
     def args_for_helper args
       args = args.dup
       
       options = args.pop
       if options.is_a?(Hash)
+        # Rails' ActionView Helpers DO modify option hashes passed to them, (which stinks big time)
+        # so we have to dup options hashes for Rails' helpers.
         options = options.except :html
       end
       
@@ -40,11 +40,6 @@ module YooAye::Helpers
     
     def eval_helper value, helper, *args
       view.send helper, value, *args
-    end
-    
-    def datetime_format value, format = nil
-      format ||= :default
-      view.localize value, :format => format
     end
     
     def options_in_args args

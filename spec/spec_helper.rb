@@ -5,6 +5,7 @@ require 'yoo_aye'
 require 'render_helper'
 require 'nokogiri'
 require "webrat/core/matchers"
+require 'rspec'
 
 module SpecHelper
   def anythings count

@@ -29,6 +29,18 @@ module YooAye::Helpers
       rendered.should have_selector('th', :content => 'Book Title')
     end
     
+    it 'provides an option to customize the column head' do
+      render_haml <<-HAML
+        = ui.table_list @books do |t|
+          - t.column :author do |book|
+            = book.author
+          - t.head :author do
+            The Author
+      HAML
+      
+      rendered.should have_selector('th.author', :content => "The Author")
+    end
+    
     it 'accepts options for html attributes' do
       render_haml <<-HAML
         = ui.table_list @books do |t|

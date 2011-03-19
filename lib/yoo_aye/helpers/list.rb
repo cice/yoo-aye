@@ -81,14 +81,6 @@ module YooAye
       def arguments_for_layout layout, item, index, tag
         [item, index, tag].compact[0, layout.arity]
       end
-
-      def locals_for_item item, index, tag
-        {
-          :item => item,
-          :item_counter => index,
-          :tag => tag
-        }
-      end
       
       private
       def clone_item_attributes

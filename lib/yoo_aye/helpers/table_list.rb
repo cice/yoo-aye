@@ -35,7 +35,7 @@ module YooAye
       
       def head key, &block
         columns[key].tap do |column|
-          column.head_layouts << block
+          column.add_head_layout block
         end
       end
 

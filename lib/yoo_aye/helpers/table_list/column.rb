@@ -11,6 +11,11 @@ module YooAye
           @tag = Util::Tag.new :class => key
           add_options *args
         end
+        
+        def add_head_layout layout
+          @head_layouts ||= []
+          @head_layouts << layout
+        end
 
         def add_options *args
           tag.merge_hash args.extract_options!
