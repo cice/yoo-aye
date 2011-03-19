@@ -14,7 +14,7 @@ module YooAye::Helpers
       def generate view, controller, *args, &block
         new(view, controller).tap do |ui|
           ui.add_options *args
-          block[ui]
+          block[ui] if block_given?
         end.to_html
       end
 

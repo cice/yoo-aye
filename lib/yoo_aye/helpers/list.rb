@@ -53,16 +53,21 @@ module YooAye
       end
 
       def render_item item, index
+        render_tag item_element, *arguments_for_render_item(item, index)
+      end
+      
+      def arguments_for_render_item item, index
         item_attributes = clone_item_attributes
-        item_content = layout_item item, index, item_attributes
-
-        render_tag item_element, item_content.html_safe, item_attributes.to_hash
+        [
+          layout_item(item, index, item_attributes),
+          item_attributes.to_hash
+        ]
       end
 
-      def layout_item item, index, tag
+      def layout_item item, index, tag, layouts = self.layouts
         layouts.sum "" do |layout|
           apply_layout layout, item, index, tag
-        end
+        end.html_safe
       end
 
       def apply_layout layout, item = nil, index = nil, tag = nil

@@ -7,6 +7,7 @@ module YooAye
     self.helpers = %w[
       list
       table_list
+      definition
     ]
     
     helpers.each do |helper|
