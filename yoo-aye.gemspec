@@ -13,13 +13,12 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = ">= 1.3.6"
 
-  s.add_dependency 'rails'
+  s.add_dependency 'actionpack'
   s.add_dependency 'haml'
   s.add_dependency 'compass'
   s.add_dependency 'sprockets'
 
   s.add_development_dependency 'rspec'
-  s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'webrat'
 
   s.files = Dir["**/*"] - 

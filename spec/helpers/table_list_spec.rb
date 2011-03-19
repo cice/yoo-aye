@@ -63,24 +63,6 @@ module YooAye::Helpers
       rendered.should have_selector('td.author.an-author', :content => 'Erich Maria Remarque')
     end
     
-    it 'provides a datetime column shortcut' do
-      render_haml <<-HAML
-        = ui.table_list @books do |t|
-          - t.datetime :last_read, :html => {:class => 'a-date'}
-      HAML
-      
-      rendered.should have_selector('td.last_read.a-date', :content => 'Sun, 01 Jan 2006 00:00:00 +0000')
-    end
-    
-    it 'accepts a format parameter for the datetime shortcut' do
-      render_haml <<-HAML
-        = ui.table_list @books do |t|
-          - t.datetime :last_read, :format => :short
-      HAML
-      
-      rendered.should have_selector('td.last_read', :content => '01 Jan 00:00', :count => 2)
-    end
-    
     it 'provides a shortcut column for arbitrary ActionView helpers' do
       view.should_receive(:highlight).with("Im Westen Nichts Neues", 'N')
       view.should_receive(:highlight).with("Narziss und Goldmund", 'N')
@@ -93,6 +75,24 @@ module YooAye::Helpers
       
       rendered.should have_selector('td.author', :content => 'Er...')
       rendered.should have_selector('td.author', :content => 'He...')
+    end
+    
+    it 'provides a localize column shortcut' do
+      render_haml <<-HAML
+        = ui.table_list @books do |t|
+          - t.localize :last_read, :html => {:class => 'a-date'}
+      HAML
+      
+      rendered.should have_selector('td.last_read.a-date', :content => 'Sun, 01 Jan 2006 00:00:00 +0000')
+    end
+    
+    it 'accepts a format parameter for the localize shortcut' do
+      render_haml <<-HAML
+        = ui.table_list @books do |t|
+          - t.localize :last_read, :format => :short
+      HAML
+      
+      rendered.should have_selector('td.last_read', :content => '01 Jan 00:00', :count => 2)
     end
   end
 end
