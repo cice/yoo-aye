@@ -9,7 +9,7 @@ module YooAye
         def blank
           @_blank_tag ||= Tag.new.freeze
         end
-        
+
         def initialize_html_attributes
           html_attributes.each do |html_attr|
             define_method "#{html_attr}=" do |value|
@@ -27,7 +27,7 @@ module YooAye
         end
       end
       initialize_html_attributes
-      
+
       def initialize options = {}
         @attributes = {
           :classes => [],
@@ -56,7 +56,7 @@ module YooAye
         @attributes.dup.tap do |hsh|
           classes = hsh.delete(:classes).reject &:blank?
           hsh[:class] = classes.compact.join(" ") unless classes.blank?
-          
+
           data = hsh.delete :data
           if data.is_a? Hash
             data.each do |key, val|
@@ -69,27 +69,27 @@ module YooAye
       def merge other_tag
         classes = @attributes[:classes] + other_tag.attributes[:classes]
         data = @attributes[:data].merge other_tag.attributes[:data]
-      
+
         @attributes.merge! other_tag.attributes
         @attributes[:classes] = classes
         @attributes[:data] = data
       end
-    
+
       def merge_hash other_hash
         other_hash = other_hash.dup
-        class_  = other_hash.delete(:class)    || nil  
+        class_  = other_hash.delete(:class)    || nil
         classes = other_hash.delete(:classes)  || []
         data    = other_hash.delete(:data)     || {}
         classes += [class_]
-      
+
         @attributes.merge! other_hash
         @attributes[:classes] += classes
         @attributes[:data] = @attributes[:data].merge data
       end
-    
+
       def freeze
         @attributes.freeze
-        super      
+        super
       end
     end
   end

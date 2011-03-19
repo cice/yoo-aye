@@ -4,7 +4,7 @@ require 'yoo_aye/util/tag'
 module YooAye::Helpers
   class Base
     include YooAye::Util
-    
+
     class << self
       def generator_method_name
         name.demodulize.underscore

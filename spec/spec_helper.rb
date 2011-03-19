@@ -19,7 +19,7 @@ RSpec.configure do |config|
   config.include SpecHelper
   config.include Webrat::Matchers
   config.include RenderHelper
-  
+
   config.before(:each) do
     initialize_view
   end

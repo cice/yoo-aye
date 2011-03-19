@@ -9,7 +9,7 @@ module YooAye
       table_list
       definition
     ]
-    
+
     helpers.each do |helper|
       require "yoo_aye/helpers/#{helper}"
       const_get(helper.classify).inject

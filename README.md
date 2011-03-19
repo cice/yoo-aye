@@ -8,10 +8,10 @@ When:
 
     #controller:
     helper YooAyHelper
-    
+
     #view
     - @numbers = %w(one two three)
-    
+
     = ui.list @numbers do |l|
       - l.item do |number, index, attributes|
         - attributes.classes << "item-#{number}"
@@ -19,7 +19,7 @@ When:
           = (index + 1).ordinalize
         .def
           = number.humanize
-          
+
 Then:
 
     <ul>

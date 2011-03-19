@@ -30,16 +30,16 @@ module YooAye
           @item_attributes
         end
       end
-      
+
       protected
       def container_element
         :ul
       end
-      
+
       def item_element
         :li
       end
-      
+
       def render_container &block
         render_tag container_element, tag_hash, &block
       end
@@ -55,7 +55,7 @@ module YooAye
       def render_item item, index
         render_tag item_element, *arguments_for_render_item(item, index)
       end
-      
+
       def arguments_for_render_item item, index
         item_attributes = clone_item_attributes
         [
@@ -86,7 +86,7 @@ module YooAye
       def arguments_for_layout layout, item, index, tag
         [item, index, tag].compact[0, layout.arity]
       end
-      
+
       private
       def clone_item_attributes
         unless layouts.all? {|l| l.arity < 3}
