@@ -8,19 +8,28 @@ module YooAye::Helpers
 
     def string key, *args
       column key, html_options_in_args(args) do |item|
-        view.concat item.send(key).to_s
+        view.concat get_item_value(item, key).to_s
       end
     end
 
     def helper key, helper, *args
       column key, html_options_in_args(args) do |item|
-        view.concat eval_helper(item.send(key), helper, *args_for_helper(args))
+        view.concat eval_helper(get_item_value(item, key), helper, *args_for_helper(args))
       end
     end
 
     helpers_to_include.each do |helper_name|
       define_method helper_name do |key, *args|
         helper key, helper_name, *args
+      end
+    end
+    
+    protected
+    def get_item_value item, key
+      keys = key.to_s.split('.')
+      
+      keys.inject item do |associated_item, key|
+        associated_item.send key
       end
     end
 
