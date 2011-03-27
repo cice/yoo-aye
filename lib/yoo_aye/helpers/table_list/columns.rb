@@ -25,6 +25,10 @@ module YooAye::Helpers
     end
     
     protected
+    def method_missing name, key, *args, &block
+      helper key, name, *args, &block
+    end
+    
     def get_item_value item, key
       keys = key.to_s.split('.')
       

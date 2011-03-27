@@ -91,6 +91,8 @@ module YooAye::Helpers
       rendered.should have_selector('td.author', :content => 'Er...')
       rendered.should have_selector('td.author', :content => 'He...')
     end
+    
+    it "delegates missing methods to ActionView's helper"
 
     it 'provides a localize column shortcut' do
       render_haml <<-HAML
