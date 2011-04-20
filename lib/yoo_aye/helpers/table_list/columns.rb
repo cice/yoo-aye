@@ -33,7 +33,7 @@ module YooAye::Helpers
       keys = key.to_s.split('.')
       
       keys.inject item do |associated_item, key|
-        associated_item.send key
+        associated_item.try key
       end
     end
 
