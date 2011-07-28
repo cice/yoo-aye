@@ -16,7 +16,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'actionpack'
   s.add_dependency 'haml'
   s.add_dependency 'compass'
-  s.add_dependency 'sprockets_rails'
 
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'webrat'
