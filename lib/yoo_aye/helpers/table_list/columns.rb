@@ -48,7 +48,11 @@ module YooAye::Helpers
         options = options.except :html
       end
 
-      args + [options]
+      if options
+        args + [options]
+      else
+        args
+      end
     end
 
     def eval_helper value, helper, *args
