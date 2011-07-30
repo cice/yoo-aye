@@ -30,6 +30,8 @@ module YooAye::Helpers
     end
     
     def get_item_value item, key
+      return item if key == :self
+      
       keys = key.to_s.split('.')
       
       keys.inject item do |associated_item, key|
