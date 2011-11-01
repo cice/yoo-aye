@@ -2,10 +2,8 @@ require 'action_view'
 
 module YooAye::Helpers
   module TableList::Columns
-    def self.helpers_to_include
-      ActionView::Helpers.instance_methods
-    end
-
+    extend ActiveSupport::Concern
+    
     def string key, *args
       column key, html_options_in_args(args) do |item|
         view.concat get_item_value(item, key).to_s
@@ -18,9 +16,13 @@ module YooAye::Helpers
       end
     end
 
-    helpers_to_include.each do |helper_name|
-      define_method helper_name do |key, *args|
-        helper key, helper_name, *args
+    included do
+      ActionView::Helpers.instance_methods.each do |helper_name|
+        next if method_defined?(helper_name)
+        
+        define_method helper_name do |key, *args|
+          helper key, helper_name, *args
+        end
       end
     end
     
